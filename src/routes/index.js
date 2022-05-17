@@ -8,7 +8,11 @@ export const router = new VueRouter({
             name:'home',
             component:()=>import('../page/HomePage')
         },
-     
+        {
+            path:'/testpase',
+            name:'testpase',
+            component:()=>import('../page/TestPage')
+        },
 
     ],
     mode: "history"

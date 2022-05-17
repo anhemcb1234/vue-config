@@ -4,38 +4,61 @@ let axiosInstance = null;
 let headers = {
     'Content-Type': 'application/json'
 }
-function setHeaders(inputHeaders){
+
+function setHeaders(inputHeaders) {
     headers = inputHeaders;
 }
-function getHeaders(){
+
+function getHeaders() {
     return headers;
 }
-function getInstance(){
-    if(axiosInstance != null){
-        return axiosInstance;
+
+function getInstance() {
+    if (axiosInstance != null) {
+        return axiosInstance
     }
     axiosInstance = axios.create({
-        baseURL: process.env.VUE_APP_BASE_API,
+        baseURL: process.env.REACT_APP_API_URL,
         headers: getHeaders()
     })
+    //hook interceptor cài ở đây
+    axiosInstance.interceptors.request.use(config => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+    })
 
-    //hook interceptor cai o day
+    axiosInstance.interceptors.response.use(response => {
+        return response;
+    }, error => {
+        if (error.response.status === 401) {
+            localStorage.removeItem('token');
+            alert('Bạn phải đăng nhập để truy cập vào api này');
+            
+        }
+        return Promise.reject(error);
+    })
     return axiosInstance;
 }
 
-function get(endpointApiUrl,payLoad={}){
-    return getInstance().get(endpointApiUrl,{
-        params: payLoad
+function get(endpointApiUrl, payload = {}) {
+    return getInstance().get(endpointApiUrl, {
+        params: payload
     })
 }
-function post(endpointApiUrl,payLoad={}){
-    return getInstance().post(endpointApiUrl,payLoad)
+
+function post(endpointApiUrl, payload = {}) {
+    return getInstance().post(endpointApiUrl, payload)
 }
-function put(endpointApiUrl,payLoad={}){
-    return getInstance().put(endpointApiUrl,payLoad);
+
+function put(endpointApiUrl, payload = {}) {
+    return getInstance().put(endpointApiUrl, payload);
 }
-function del(endpointApiUrl,payLoad={}){
-    return getInstance().delete(endpointApiUrl,payLoad);
+
+function del(endpointApiUrl, payload = {}) {
+    return getInstance().delete(endpointApiUrl, payload)
 }
 
 export const Axios = {
@@ -47,6 +70,3 @@ export const Axios = {
     put,
     del
 }
-
-
-
