@@ -17,6 +17,12 @@ export const router = new VueRouter({
             path:'/nav',
             name:'nav',
             component:()=>import('@/components/Nav.vue')
+        }, 
+
+        {
+            path:'/checkout',
+            name:'checkout',
+            component:()=>import('@/page/Checkout.vue')
         }
     ],
     mode: "history"
