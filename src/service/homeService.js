@@ -1,9 +1,12 @@
 import {Axios} from "./Axios";
 
-function getHome(){
-    return Axios.get('home');
+function getAddStaff(payload){
+    return Axios.post('/api/staff',payload);
 }
-
+function delUserById(id){
+    return Axios.post(`/api/staff/${id}`);
+}
 export const homeService = {
-    getHome
+    getAddStaff,
+    delUserById
 };

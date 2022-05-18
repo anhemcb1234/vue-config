@@ -8,14 +8,12 @@
             <div class="mt-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2">User Name</label>
                 <input v-model="name" placeholder=" Enter user name" class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="text">
-                <span class="text-red-500 italic text-sm">{{errorName}}</span>
             </div>
             <div class="mt-4">
                 <div class="flex justify-between">
                     <label class="block text-gray-700 text-sm font-bold mb-2">Password</label>
                 </div>
                 <input v-model="password" placeholder="Enter your password" class="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="password">
-                <span class="text-red-500 italic text-sm">{{errorPassword}}</span>
             </div>
             <div class="mt-8">
                 <button @click="handlerSubmit()" class="bg-gray-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-gray-600">Login</button>
@@ -27,40 +25,30 @@
 </template>
 
 <script>
-// import {
-//     authServices
-// } from '@/service/authServices';
+import {
+    loginService
+} from '../service/loginService';
 export default {
     data() {
         return {
             name: '',
             password: '',
-            errorName: '',
-            errorPassword: ''
         }
     },
     methods: {
-        handlerSubmit() {
-            this.$router.push('/home')
-        },
-        async login() {
-            if (this.name == '') {
-                this.errorName = 'Please enter your name'
-                return;
+        async handlerSubmit() {
+            console.log(1)
+            try {
+                const response = await loginService.getSignIn({
+                    username: this.name,
+                    password: this.password
+                })
+                console.log(response.data)
+                localStorage.setItem('token', response.data.token);
+                this.$router.push(`/home?id=${response.data.id}`)
+            } catch (error) {
+                console.log(error.message);
             }
-            if (this.password == '') {
-                this.errorPassword = 'Please enter your password'
-                return;
-            }
-            // try {
-            //     // const response = authServices.login({
-            //     //     name: this.name,
-            //     //     password: this.password
-            //     // })
-            //     const data = response.data;
-            // } catch (error) {
-            //     console.log(error.message);
-            // }
         }
     }
 }
