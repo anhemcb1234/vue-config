@@ -81,7 +81,7 @@ export default {
             date: new Date(),
             incId: todos.length,
             todos,
-            user:JSON.parse(localStorage.getItem('token'))
+            user:JSON.parse(localStorage.getItem('data'))
 
         };
     },
@@ -91,7 +91,7 @@ export default {
         },
        async handTimekeeping() {
             try {
-              await  authServices.timekeeping(this.user.staffId)
+              await authServices.timekeeping(1)
             } catch (error) {
                 console.log(error)
             }
