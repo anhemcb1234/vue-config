@@ -6,7 +6,7 @@ export const router = new VueRouter({
         {
             path:'/',
             name:'login',
-            component:()=>import('../components/Login.vue')
+            component:()=>import('@/page/Login.vue')
         },
         {
             path:'/home',
@@ -23,6 +23,12 @@ export const router = new VueRouter({
             path:'/checkout',
             name:'checkout',
             component:()=>import('@/page/Checkout.vue')
+        },
+
+        {
+            path:'/overtime',
+            name:'overtime',
+            component:()=>import('@/page/Overtime.vue')
         }
     ],
     mode: "history"

@@ -3,12 +3,11 @@
     <Nav> </Nav>
 
     <div class="flex items-center justify-center">
-        <v-date-picker :attributes='attributes' class="w-3/4 mt-10" color="red" is-dark mode='single' tint-color='#f142f4' v-model="date" is-double-paned is-inline>
+        <v-date-picker :attributes='attributes' class="w-full mx-16 mt-10" color="red" mode="date"   tint-color='#f142f4' v-model="date" is-double-paned is-inline>
         </v-date-picker>
     </div>
-    <button @click="handlerDate()">test</button>
-
-    <div class="grid grid-cols-3 mx-5 mt-8">
+     <!-- <p>{{date}}</p> -->
+    <div class="grid grid-cols-3 mx-3 mt-8">
 
         <div class="flex justify-center">
             <div class="block p-6 rounded-lg shadow-lg bg-white max-w-sm">
@@ -26,7 +25,11 @@
                 <p class="text-gray-700 text-base mb-4">
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse, dolorum!
                 </p>
-                <button type="button" class=" inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Submit</button>
+               
+            <router-link to="/overtime">
+                              <button type="button" class=" inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Submit</button>
+            </router-link>
+           
             </div>
         </div>
 
@@ -36,7 +39,10 @@
                 <p class="text-gray-700 text-base mb-4">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis, dolorum.
                 </p>
-                <button type="button" class=" inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Submit</button>
+                 <router-link  to="/checkout">
+                  <button type="button" class=" inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Submit</button>
+                   
+                   </router-link>           
             </div>
         </div>
 
@@ -61,10 +67,9 @@ export default {
         };
     },
     methods: {
-        handlerDate() {
-            console.log(this.date)
-        },
+    
     },
+    
 }
 </script>
 
