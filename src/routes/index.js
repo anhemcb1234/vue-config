@@ -5,15 +5,19 @@ export const router = new VueRouter({
     routes:[
         {
             path:'/',
-            name:'home',
-            component:()=>import('../page/HomePage')
+            name:'login',
+            component:()=>import('../components/Login.vue')
         },
         {
-            path:'/testpase',
-            name:'testpase',
-            component:()=>import('../page/TestPage')
-        },
-
+            path:'/home',
+            name:'home',
+            component:()=>import('@/page/HomePage.vue')
+        }, 
+        {
+            path:'/nav',
+            name:'nav',
+            component:()=>import('@/components/Nav.vue')
+        }
     ],
     mode: "history"
 })
