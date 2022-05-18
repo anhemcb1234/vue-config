@@ -13,6 +13,16 @@ export const router = new VueRouter({
             name:'login',
             component:()=>import('../page/LoginAdmin.vue'),
         },
+        {
+            path:'/user',
+            name:'user',
+            component:()=>import('../page/DeatilUser.vue'),
+        },
+        {
+            path:'/add-user',
+            name:'add-user',
+            component:()=>import('../page/AddUser.vue'),
+        }
 
     ],
     mode: "history"
