@@ -3,8 +3,9 @@
     <Nav> </Nav>
 
     <div class="flex items-center justify-center">
-        <v-date-picker :attributes='attributes' class="w-full mx-16 mt-10" color="red" mode="date"   tint-color='#f142f4' v-model="date" is-double-paned is-inline>
-        </v-date-picker>
+            <v-date-picker :attributes='attributes' class="w-full mx-16 mt-10" color="red" mode="date"   tint-color='#f142f4' v-model="date" is-double-paned is-inline>
+           </v-date-picker>
+
     </div>
      <!-- <p>{{date}}</p> -->
     <div class="grid grid-cols-3 mx-3 mt-8">
