@@ -1,3 +1,4 @@
+
 import axios from "axios";
 
 let axiosInstance = null;
@@ -18,7 +19,7 @@ function getInstance() {
         return axiosInstance
     }
     axiosInstance = axios.create({
-        baseURL: process.env.REACT_APP_API_URL,
+        baseURL: process.env.VUE_APP_BASE_API,
         headers: getHeaders()
     })
     //hook interceptor cài ở đây
@@ -35,8 +36,7 @@ function getInstance() {
     }, error => {
         if (error.response.status === 401) {
             localStorage.removeItem('token');
-            alert('Bạn phải đăng nhập để truy cập vào api này');
-            
+            alert('Bạn phải đăng nhập để truy cập vào api này');          
         }
         return Promise.reject(error);
     })

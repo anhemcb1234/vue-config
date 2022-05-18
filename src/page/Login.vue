@@ -45,6 +45,7 @@
                 <span class="border-b w-1/5 md:w-1/4"></span>
             </div>
         </div>
+        <button @click="test">test</button>
     </div>
 </div>
      </div>  
@@ -58,7 +59,7 @@ data() {
         name: '',
         password: '',
         errorName:'',
-        errorPassword:''
+        errorPassword:'',
     }
 },
 methods: {
@@ -72,15 +73,18 @@ methods: {
             return;
         }
         try {
-            const response = authServices.login({
-                name: this.name,
+            const response = await authServices.login({
+                username: this.name,
                 password: this.password
             })
-           const data = response.data;
+           console.log(response.data.token)
+             localStorage.setItem('token', JSON.stringify(response.data.token))
+             localStorage.setItem('data', JSON.stringify(response.data))
+            this.$router.push('/home')    
         } catch (error) {
             console.log(error.message);
         }
-    }
+    },
 }
 }
 </script>

@@ -6,16 +6,16 @@
         <v-date-picker :attributes='attributes' class="w-full mx-16 mt-10" color="red" mode="date" tint-color='#f142f4' v-model="date" is-double-paned is-inline>
         </v-date-picker>
     </div>
-    <!-- <p>{{date}}</p> -->
+    <p>{{date}}</p>
     <div class="grid grid-cols-3 mx-3 mt-8">
 
         <div class="flex justify-center">
             <div class="block p-6 rounded-lg shadow-lg bg-white max-w-sm">
-                <h5 class="text-gray-900 text-xl leading-tight font-bold mb-2">Chấm công</h5>
+                <h5 class="text-gray-900 text-xl leading-tight font-bold mb-2" >Chấm công</h5>
                 <p class="text-gray-700 text-base mb-4">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, debitis!
                 </p>
-                <button type="button" class=" inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Submit</button>
+                <button @click="handTimekeeping" type="button" class=" inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Submit</button>
             </div>
         </div>
 
@@ -43,9 +43,8 @@
                     <button type="button" class=" inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Submit</button>
                 </router-link>
             </div>
-            <button @click="test()">Test</button>
         </div>
-
+       <button @click="test">mfkr</button>
     </div>
 
 </div>
@@ -53,6 +52,7 @@
 
 <script>
 import Nav from '../components/Nav.vue'
+import {authServices} from '@/service/authServices'
 export default {
     components: {
         Nav,
@@ -62,7 +62,8 @@ export default {
                 description: 'Take Noah to basketball practice.',
                 isComplete: false,
                 dates: {
-                    days: [1, 2, 3, 4]
+                    days: [1, 2, 3, 4],
+                    month: [4]
                 }, // Every Friday
                 color: 'red',
             },
@@ -80,12 +81,20 @@ export default {
             date: new Date(),
             incId: todos.length,
             todos,
+            user:JSON.parse(localStorage.getItem('token'))
 
         };
     },
     methods: {
         test() {
-            console.log(1)
+            console.log(this.user.token)
+        },
+       async handTimekeeping() {
+            try {
+              await  authServices.timekeeping(this.user.staffId)
+            } catch (error) {
+                console.log(error)
+            }
         }
     },
     computed: {
