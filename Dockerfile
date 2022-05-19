@@ -1,17 +1,13 @@
-FROM node:lts-alpine as build-dist
-WORKDIR app
-COPY package.json /app
-RUN npm install -g yarn
-RUN yarn add -g http-server
-RUN yarn
-COPY . /app
+# build stage
+FROM node:lts-alpine as build-stage
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
 COPY . .
-RUN yarn run build
+RUN npm run build
 
-
-FROM nginx:stable-alpine
-WORKDIR website
-COPY --from=build-dist ./app/dist /website
-COPY ./nginx.conf /etc/nginx/nginx.conf
+# production stage
+FROM nginx:stable-alpine as production-stage
+COPY --from=build-stage /app/dist /usr/share/nginx/html
 EXPOSE 80
-CMD ["http-server", "dist", "nginx", "-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]
