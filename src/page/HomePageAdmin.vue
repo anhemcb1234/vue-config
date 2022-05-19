@@ -41,7 +41,7 @@ export default {
     },
     methods: {
         async getData() {
-            const data = await homeService.getUserById()
+            const data = await homeService.getAllStaff()
             console.log(data)
         },
         async handlerDel() {
