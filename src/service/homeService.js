@@ -6,7 +6,11 @@ function getAddStaff(payload){
 function delUserById(id){
     return Axios.post(`/api/staff/${id}`);
 }
+function getDetailUser(id){
+    return Axios.get(`api/staff/${id}`);
+}
 export const homeService = {
     getAddStaff,
-    delUserById
+    delUserById,
+    getDetailUser
 };
