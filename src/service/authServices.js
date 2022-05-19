@@ -8,7 +8,12 @@ function timekeeping(id){
     return Axios.get(`api/timekeeping/${id}`);
 }
 
+function logout(id){
+    return Axios.get(`api/timekeeping/${id}`);
+}
+
 export const authServices = {
     login, 
-    timekeeping
+    timekeeping,
+    logout
 };

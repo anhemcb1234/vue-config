@@ -45,7 +45,6 @@
                     <span class="border-b w-1/5 md:w-1/4"></span>
                 </div>
             </div>
-            <button @click="test">test</button>
         </div>
     </div>
 </div>
@@ -65,15 +64,24 @@ export default {
         }
     },
     methods: {
-        async login() {
+
+        validate() {
             if (this.name == '') {
                 this.errorName = 'Please enter your name'
                 return;
+            }else{
+                this.errorName = ''
             }
-            if (this.password == '') {
+             if (this.password == '') {
                 this.errorPassword = 'Please enter your password'
                 return;
+            } else{
+                this.errorPassword = ''
             }
+        },
+
+        async login() {
+            this.validate();
             try {
                 const response = await authServices.login({
                     username: this.name,
@@ -84,7 +92,21 @@ export default {
                 localStorage.setItem('data', JSON.stringify(response.data))
                 this.$router.push('/home')
             } catch (error) {
-                console.log(error.message);
+                console.log(error)
+                  this.$toast.error("không đặp nhập được là do bạn đen !!", {
+                 position: "top-right",
+                 timeout: 5000,
+                 closeOnClick: true,
+                 pauseOnFocusLoss: true,
+                 pauseOnHover: true,
+                 draggable: true,
+                 draggablePercent: 0.6,
+                showCloseButtonOnHover: false,
+                hideProgressBar: true,
+                closeButton: "button",
+                icon: true,
+                rtl: false
+            });
             }
         },
     }
