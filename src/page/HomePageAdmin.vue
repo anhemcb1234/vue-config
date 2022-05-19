@@ -2,11 +2,11 @@
 <div class="main-body">
     <NavBar></NavBar>
     <div class="flex items-center justify-center">
-        <v-date-picker  class="w-full mx-16 mt-10" color="red" mode="date" tint-color="#f142f4" v-model="date" is-double-paned is-inline>
+        <v-date-picker class="w-full mx-16 mt-10" color="red" mode="date" tint-color="#f142f4" v-model="date" is-double-paned is-inline>
         </v-date-picker>
     </div>
-    <div class="grid grid-cols-3 gap-4 m-3">
-        <div v-for="(item, index) in listStaff.data" v-bind:key="index" class="col bg-yellow-500 drop-shadow-xl p-5 mt-20 rounded w-full  mb-3">
+    <div class="grid grid-cols-3 gap-4 m-3 p-5">
+        <div v-for="(item, index) in reverseMessage" v-bind:key="index" class="col bg-yellow-500 drop-shadow-xl p-5 mt-20 rounded w-full  mb-3">
             <div class="card">
                 <div class="card-body mt-2 h-60 min-h-fit">
                     <img src="https://bootdey.com/img/Content/avatar/avatar7.png" style="width: 100px; margin-top: -65px" alt="User" class="img-fluid rounded-full img-thumbnail rounded-circle border-0" />
@@ -21,7 +21,7 @@
                             Detail
                         </button>
                     </router-link>
-                    <button @click="handlerDel()" class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded" type="button">
+                    <button @click="handlerDel(item.id)" class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded" type="button">
                         Delete
                     </button>
                 </div>
@@ -52,10 +52,11 @@ export default {
             this.listStaff = data
             console.log(data);
         },
-        async handlerDel() {
+        async handlerDel(id) {
             try {
-                const data = await homeService.delUserById(this.idStaff);
+                const data = await homeService.delUserById(id);
                 console.log(data);
+                this.getData()
             } catch (e) {
                 console.log(e);
             }
@@ -97,6 +98,11 @@ export default {
             idStaff: this.$route.query.id,
             listStaff: [],
         };
+    },
+    computed: {
+        reverseMessage() {
+            return this.listStaff.data
+        }
     },
 };
 </script>

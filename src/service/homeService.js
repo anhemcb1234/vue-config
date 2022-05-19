@@ -4,7 +4,7 @@ function getAddStaff(payload){
     return Axios.post('/api/staff',payload);
 }
 function delUserById(id){
-    return Axios.post(`/api/staff/${id}`);
+    return Axios.del(`/api/staff/${id}`);
 }
 function getAllStaff(){
     return Axios.get(`/api/staff`);

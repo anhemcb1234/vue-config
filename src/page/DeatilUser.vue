@@ -20,9 +20,17 @@
                 <label class="pb-2 text-gray-700 font-semibold">Address</label>
                 <input :value="dataStaff.address" @change="(e) => this.address = e.target.value" type="text" class="p-2 shadow rounded-lg bg-gray-100 outline-none focus:bg-gray-200" placeholder="Full name">
             </div>
-            <button @click="handlerUpdate()" class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded" type="button">
-                Update
-            </button>
+            <div class="flex justify-between mt-2">
+                <button @click="handlerUpdate()" class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded" type="button">
+                    Update
+                </button>
+                <router-link to="/home">
+                    <button @click="test()" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" type="button">
+                        Home Page
+                    </button>
+                </router-link>
+            </div>
+
         </div>
     </div>
 
@@ -55,7 +63,7 @@ export default {
         },
         test() {
             console.log(this.idStaff)
-            console.log(this.dataStaff.age)
+            console.log(this.dataStaff.address)
         },
         async handlerUpdate() {
             try {
