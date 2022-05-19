@@ -9,8 +9,16 @@ function delUserById(id){
 function getAllStaff(){
     return Axios.get(`/api/staff`);
 }
+function getStaffById(id){
+    return Axios.get(`/api/staff/${id}`);
+}
+function updateStaffById(payload){
+    return Axios.post(`/api/staff/update`,payload);
+}
 export const homeService = {
     getAddStaff,
     delUserById,
-    getAllStaff
+    getAllStaff,
+    getStaffById,
+    updateStaffById
 };

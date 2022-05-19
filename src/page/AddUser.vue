@@ -70,7 +70,12 @@ export default {
                         email: this.email,
                     }
                 })
-
+                this.fullname = ''
+                this.username = ''
+                this.email = ''
+                this.password = ''
+                this.age = ''
+                this.address = ''
             } catch (e) {
                 console.log(3)
             }
