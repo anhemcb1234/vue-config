@@ -90,7 +90,7 @@ export default {
                 console.log(response.data.token)
                 localStorage.setItem('token', JSON.stringify(response.data.token))
                 localStorage.setItem('data', JSON.stringify(response.data))
-                this.$router.push('/home')
+                this.$router.push({name:'home'})
             } catch (error) {
                 console.log(error)
                   this.$toast.error("không đặp nhập được là do bạn đen !!", {

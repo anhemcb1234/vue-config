@@ -6,12 +6,11 @@
         <v-date-picker :attributes='attributes' class="w-full mx-16 mt-10" color="red" mode="date" tint-color='#f142f4' v-model="date" is-double-paned is-inline>
         </v-date-picker>
     </div>
-    <p>{{date}}</p>
     <div class="grid grid-cols-3 mx-3 mt-8">
 
         <div class="flex justify-center">
             <div class="block p-6 rounded-lg shadow-lg bg-white max-w-sm">
-                <h5 class="text-gray-900 text-xl leading-tight font-bold mb-2" >Chấm công</h5>
+                <h5 class="text-gray-900 text-xl leading-tight font-bold mb-2">Chấm công</h5>
                 <p class="text-gray-700 text-base mb-4">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, debitis!
                 </p>
@@ -39,39 +38,41 @@
                 <p class="text-gray-700 text-base mb-4">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis, dolorum.
                 </p>
-                <router-link to="/checkout">
-                    <button type="button" class=" inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Submit</button>
-                </router-link>
+
+                <button @click="checkout" type="button" class=" inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Submit</button>
+
             </div>
         </div>
-       <button @click="test">mfkr</button>
     </div>
-
+ <!-- <button @click='test'>test</button> -->
+ <!-- {{this.listUser}} -->
 </div>
 </template>
 
 <script>
 import Nav from '../components/Nav.vue'
-import {authServices} from '@/service/authServices'
+import {
+    authServices
+} from '@/service/authServices'
 export default {
+
     components: {
         Nav,
     },
     data() {
         const todos = [{
-                description: 'Take Noah to basketball practice.',
+                description: 'ngày nghỉ',
                 isComplete: false,
                 dates: {
-                    days: [1, 2, 3, 4],
-                    month: [4]
+                    days: [2,4],
                 }, // Every Friday
                 color: 'red',
             },
             {
-                description: 'Take Noah to basketball practice.',
+                description: 'ngày đi làm',
                 isComplete: true,
                 dates: {
-                    days: [5, 6, 7, 8]
+                    days:[19,18]
                 }, // Every Friday
                 color: 'green',
             },
@@ -81,27 +82,93 @@ export default {
             date: new Date(),
             incId: todos.length,
             todos,
-            user:JSON.parse(localStorage.getItem('data'))
-
+            user: JSON.parse(localStorage.getItem('data')),
+            listUser:[],
+            mien:[2],
         };
     },
+
     methods: {
         test() {
-            console.log(this.user.token)
+         console.log(this.listUser);
         },
-       async handTimekeeping() {
+
+        async checkout() {
             try {
-              await authServices.timekeeping(1)
+                await authServices.checkout(this.user.staffId)
+                this.$toast.success("chúc mừng bạn hôm nay không có lương !", {
+                    position: "top-right",
+                    timeout: 5000,
+                    closeOnClick: true,
+                    pauseOnFocusLoss: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    draggablePercent: 0.6,
+                    showCloseButtonOnHover: false,
+                    hideProgressBar: true,
+                    closeButton: "button",
+                    icon: true,
+                    rtl: false
+                });
             } catch (error) {
-                console.log(error)
+                this.$toast.error(" error !!", {
+                    position: "top-right",
+                    timeout: 5000,
+                    closeOnClick: true,
+                    pauseOnFocusLoss: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    draggablePercent: 0.6,
+                    showCloseButtonOnHover: false,
+                    hideProgressBar: true,
+                    closeButton: "button",
+                    icon: true,
+                    rtl: false
+                });
+
             }
-        }
+        },
+
+        async handTimekeeping() {
+            try {
+                await authServices.timekeeping(this.user.staffId)
+                this.$toast.success(" timekeeping success !!", {
+                    position: "top-right",
+                    timeout: 5000,
+                    closeOnClick: true,
+                    pauseOnFocusLoss: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    draggablePercent: 0.6,
+                    showCloseButtonOnHover: false,
+                    hideProgressBar: true,
+                    closeButton: "button",
+                    icon: true,
+                    rtl: false
+                });
+            } catch (error) {
+                this.$toast.error("error!", {
+                    position: "top-right",
+                    timeout: 5000,
+                    closeOnClick: true,
+                    pauseOnFocusLoss: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    draggablePercent: 0.6,
+                    showCloseButtonOnHover: false,
+                    hideProgressBar: true,
+                    closeButton: "button",
+                    icon: true,
+                    rtl: false
+                });
+            }
+        },
     },
     computed: {
         attributes() {
             return [
                 // Attributes for todos
-                ...this.todos.map(todo => ({
+                ...this.todos?.map(todo => ({
                     dates: todo.dates,
                     dot: {
                         color: todo.color,
@@ -114,6 +181,16 @@ export default {
                 })),
             ];
         },
+    },
+
+    async mounted() {
+        try {
+            const response = await authServices.getTimekeeping(this.user.staffId)
+            this.listUser = response.data.days;
+        } catch (error) {
+          console.log(error)
+        }
+        
     },
 
 }
