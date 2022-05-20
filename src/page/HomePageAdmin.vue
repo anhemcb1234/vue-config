@@ -3,11 +3,7 @@
        
     <NavBar></NavBar>
     <div class="flex items-center justify-center">
-<<<<<<< HEAD
-        <v-date-picker  class="w-full mx-16 mt-10" color="red" mode="date" tint-color="#f142f4" v-model="date" is-double-paned is-inline>
-=======
         <v-date-picker :attributes='attributes' class="w-full mx-16 mt-10" color="red" mode="date" tint-color='#f142f4' v-model="date" is-double-paned is-inline>
->>>>>>> 6570d3c23de229e04ed5cc4531e304504040698c
         </v-date-picker>
     </div>
     <div class="grid grid-cols-3 gap-4 m-3">
@@ -82,9 +78,6 @@ import NavBar from "../components/NavBar.vue";
 import Footer from "../components/Footer.vue";
 
 export default {
-<<<<<<< HEAD
-    name: "HomePageAdmin",
-=======
     name: 'HomePageAdmin',
     data() {
         const todos = [{
@@ -112,7 +105,6 @@ export default {
             show: false,
         }
     },
->>>>>>> 6570d3c23de229e04ed5cc4531e304504040698c
     components: {
         NavBar,
         Footer,
@@ -136,14 +128,6 @@ export default {
         }
     },
     mounted() {
-<<<<<<< HEAD
-        if (localStorage.getItem("token") === null) {
-            alert("You are not logged in");
-            this.$router.push("/");
-            return;
-        }
-        this.getData();
-=======
         if (localStorage.getItem('token') === null) {
             alert("You are not logged in")
             this.$router.push('/')
@@ -171,7 +155,6 @@ export default {
                 })),
             ];
         },
->>>>>>> 6570d3c23de229e04ed5cc4531e304504040698c
     },
     data() {
         const todos = [{
