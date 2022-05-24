@@ -79,8 +79,9 @@ export default {
     methods: {
         async overtime() {
             try {
-                await authServices.overtime(this.user.staffId, this.hours)
+               await authServices.overtime(this.user.staffId, this.hours)
                 this.hours = ''
+                
                 this.$toast.success("overtime hours sắc văn xít!", {
                     position: "top-right",
                     timeout: 5000,

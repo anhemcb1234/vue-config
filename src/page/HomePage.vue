@@ -8,44 +8,53 @@
     </div>
     <div class="grid grid-cols-3 mx-3 mt-8">
 
-        <div class="flex justify-center">
-            <div class="block p-6 rounded-lg shadow-lg bg-white max-w-sm">
-                <h5 class="text-gray-900 text-xl leading-tight font-bold mb-2">Chấm công</h5>
-                <p class="text-gray-700 text-base mb-4">
+        <div class="flex justify-center ">
+            <div class="block p-6 rounded-lg shadow-2xl max-w-sm bg-white">
+                <h5 class="text-gray-900 text-2xl text-center leading-tight font-bold mb-2">Chấm công</h5>
+                <p class="text-gray-700 text-center text-base mb-4">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, debitis!
                 </p>
-                <button @click="handTimekeeping" type="button" class=" inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Submit</button>
+
+            <div class="flex justify-center">
+                <button @click="handTimekeeping" type="button" class="text-white text-bold bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-md md:w-44 px-5 py-2.5 text-center mr-2 mb-2">Submit</button>
+
+            </div>
             </div>
         </div>
 
         <div class="flex justify-center">
-            <div class="block p-6 rounded-lg shadow-lg bg-white max-w-sm">
-                <h5 class="text-gray-900 text-xl leading-tight  mb-2 font-bold">Xin làm thêm giờ</h5>
-                <p class="text-gray-700 text-base mb-4">
+            <div class="block p-6 rounded-lg shadow-2xl bg-white max-w-sm">
+                <h5 class="text-gray-900 text-2xl text-center leading-tight  mb-2 font-bold">Xin làm thêm giờ</h5>
+                <p class="text-gray-700 text-center text-base mb-4">
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse, dolorum!
                 </p>
 
                 <router-link to="/overtime">
-                    <button type="button" class=" inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Submit</button>
+                <div class="flex justify-center">
+                    <button type="button"  class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-md md:w-44 px-5 py-2.5 text-center mr-2 mb-2">Submit</button>
+
+                </div>
                 </router-link>
 
             </div>
         </div>
-
         <div class="flex justify-center">
-            <div class="block p-6 rounded-lg shadow-lg bg-white max-w-sm">
-                <h5 class="text-gray-900 text-xl leading-tight  mb-2 font-bold">Xin về sớm</h5>
-                <p class="text-gray-700 text-base mb-4">
+            <div class="block p-6 rounded-lg shadow-2xl bg-white max-w-sm ">
+                <h5 class="text-gray-900 text-2xl text-center leading-tight  mb-2 font-bold">Xin về sớm</h5>
+                <p class="text-gray-700 text-center text-base mb-4">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis, dolorum.
                 </p>
 
-                <button @click="checkout" type="button" class=" inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Submit</button>
+<div class="flex justify-center">
+                <button @click="checkout" type="button"  class=" text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-md md:w-44 px-5 py-2.5 text-center mr-2 mb-2">Submit</button>
 
+</div>
             </div>
         </div>
+
     </div>
- <!-- <button @click='test'>test</button> -->
- <!-- {{this.listUser}} -->
+    <!-- <button @click='test'>test</button> -->
+    <!-- {{this.listUser}} -->
 </div>
 </template>
 
@@ -64,7 +73,7 @@ export default {
                 description: 'ngày nghỉ',
                 isComplete: false,
                 dates: {
-                    days: [2,4],
+                    days: [10,20, 7, 8],
                 }, // Every Friday
                 color: 'red',
             },
@@ -72,7 +81,7 @@ export default {
                 description: 'ngày đi làm',
                 isComplete: true,
                 dates: {
-                    days:[19,18]
+                    days: [9,6,5,3,2]
                 }, // Every Friday
                 color: 'green',
             },
@@ -83,19 +92,37 @@ export default {
             incId: todos.length,
             todos,
             user: JSON.parse(localStorage.getItem('data')),
-            listUser:[],
-            mien:[2],
+            listUser: [],
+            mien:true
+
         };
     },
 
     methods: {
         test() {
-         console.log(this.listUser);
+            console.log(this.listUser);
         },
 
         async checkout() {
             try {
-                await authServices.checkout(this.user.staffId)
+                const response = await authServices.checkout(this.user.staffId)
+                if ((response.data === '')) {
+                    this.$toast.warning(" xin về một lần thôi bạn êiii !", {
+                        position: "top-right",
+                        timeout: 5000,
+                        closeOnClick: true,
+                        pauseOnFocusLoss: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        draggablePercent: 0.6,
+                        showCloseButtonOnHover: false,
+                        hideProgressBar: true,
+                        closeButton: "button",
+                        icon: true,
+                        rtl: false
+                    });
+                    return;
+                }
                 this.$toast.success("chúc mừng bạn hôm nay không có lương !", {
                     position: "top-right",
                     timeout: 5000,
@@ -186,11 +213,10 @@ export default {
     async mounted() {
         try {
             const response = await authServices.getTimekeeping(this.user.staffId)
-            this.listUser = response.data.days;
+            this.listUser = response.data;
         } catch (error) {
-          console.log(error)
+            console.log(error)
         }
-        
     },
 
 }

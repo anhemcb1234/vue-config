@@ -35,8 +35,7 @@ function getInstance() {
         return response;
     }, error => {
         if (error.response.status === 401) {
-            localStorage.removeItem('token');
-            alert('Bạn phải đăng nhập để truy cập vào api này');          
+            localStorage.removeItem('token');        
         }
         return Promise.reject(error);
     })
