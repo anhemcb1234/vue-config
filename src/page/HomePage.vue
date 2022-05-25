@@ -98,7 +98,7 @@ export default {
 
     methods: {
         test() {
-          
+          console.log(moment().subtract(1, 'days').format('x'));
         },
 
         async checkout() {
