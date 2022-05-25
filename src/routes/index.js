@@ -34,6 +34,11 @@ export const router = new VueRouter({
             path:'/test',
             name:'test',
             component:()=>import('@/page/Test.vue')
+        },
+        {
+            path:'/payroll',
+            name:'payroll',
+            component:()=>import('@/page/Payroll.vue')
         }
     ],
     mode: "history"

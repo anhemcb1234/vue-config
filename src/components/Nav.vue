@@ -1,18 +1,22 @@
 <template>
 <div class="container ">
 
-    <div class="mx-14 ">
+    <div class="md:mx-14  mx-4">
         <nav class="container flex rounded justify-around bg-blue-600  p-3">
-        <div class="flex items-center w-44 h-10 overflow-hidden">
+        <div class="flex items-center md:w-44 md:h-10 w-24 h-8 overflow-hidden">
           <img class="w-full h-full object-cover" src="https://phanmemtinhluong.com/wp-content/uploads/2020/12/vietinsoft_logo512.png" alt="">
         </div>
         <!-- left header section -->
         <div class="items-center hidden space-x-8 lg:flex">
-            <a href="" class="text-white text-md font-bold">Home</a>
-            <a href="" class="text-white text-md font-bold">About Us</a>
-            <a href="" class="text-white text-md font-bold">Blogs</a>
-            <a href="" class="text-white text-md font-bold">Our Team</a>
-            <a href="" class="text-white text-md font-bold"> Contact Us</a>
+            <router-link to="/home">
+                 <a href="" class="text-white text-md font-bold">Home</a>
+            </router-link>
+            <router-link 
+            to="/payroll">
+            <a href="" class="text-white text-md font-bold">Payroll</a> </router-link>
+            <a href="" class="text-white text-md font-bold">Lorem</a>
+            <a href="" class="text-white text-md font-bold">lorem</a>
+            <a href="" class="text-white text-md font-bold"> lorem</a>
         </div>
         <!-- right header section -->
        
